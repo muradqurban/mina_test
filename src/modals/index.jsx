@@ -29,6 +29,7 @@ export default function ModalComponent ({openState}) {
                 status:modals[0].data.status,
             })
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[isOpen])
 
     const handleChange = (e) => {

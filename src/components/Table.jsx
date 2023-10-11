@@ -5,7 +5,7 @@ import 'react-tabulator/css/bulma/tabulator_bulma.css';
 import Filter from './Filter';
 import { DeleteFilled, EnvironmentFilled, EditFilled } from "@ant-design/icons";
 import { reactFormatter, createModal, useTableData, deleteCell, setSelectedData } from "../utils";
-import { useRef, useState } from 'react';
+import { memo, useRef, useState } from 'react';
 
 
 const GetMapData = () => {
@@ -22,7 +22,7 @@ return  <DeleteFilled />
 
 }
 
-export default function Table () {
+function Table () {
     const tabulator = useRef(null);
     const [filteredData,setFilteredData] = useState([])
     const data = useTableData()
@@ -78,3 +78,5 @@ export default function Table () {
     )
 }
 
+
+export default memo(Table)
