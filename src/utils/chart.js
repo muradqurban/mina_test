@@ -40,7 +40,7 @@ export const secondChart = (data) => {
     
     const reduce = Object.keys(firstGroup).map((key) => {
         const a = firstGroup[key];
-        const sum = a.reduce((acc, len) => acc + len, 0).toFixed(2);
+        const sum = a.reduce((acc, len) => acc + len, 0);
         return { status: key, sum };
         });
 
