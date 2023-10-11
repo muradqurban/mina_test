@@ -60,7 +60,7 @@ export default function Chart() {
         ]
     }
 
-    const chartSyle = "w-1/2 h-fit bg-indigo-100"
+    const chartSyle = "w-1/2 h-fit bg-indigo-100 p-2"
     const pie = () => {
         return(
             <div className={chartSyle}>

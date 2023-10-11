@@ -47,13 +47,16 @@ function Table () {
         { title: titleData[2], field: "wkt", headerFilter:true, headerFilterPlaceholder:"Search", width:500},
         { title: titleData[3], field: "status", headerFilter:true, headerFilterPlaceholder:"Search", width: 100},
         { title: "", hozAlign: "center", width: 25, formatter:reactFormatter(<GetMapData/>), cellClick: (e,cell)=>{
+            e.preventDefault()
             const cellDatas= manipulateCell(cell)
             setSelectedData(cellDatas.wkt)
         }},
         { title: "", hozAlign: "center", width: 25, formatter:reactFormatter(<EditCell/>), cellClick: (e,cell)=>{
+            e.preventDefault()
             const cellDatas= manipulateCell(cell)
             createModal("edit",cellDatas)}},
         { title: "", hozAlign: "center", width: 25, formatter:reactFormatter(<DelteCell/>), cellClick: function(e,cell){
+            e.preventDefault()
             cell.getRow().delete()
             const cellDatas= manipulateCell(cell)
             deleteCell(cellDatas)}},
