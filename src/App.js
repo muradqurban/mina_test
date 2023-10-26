@@ -21,7 +21,7 @@ export default function App() {
       {coordinate.length > 0 && <MapComponent/>}
       </div>
       <Chart/>
-      {modals.length > 0 && <ModalComponent openState={true}/>}
+      {modals.length > 0 && <ModalComponent />}
     </div>
   );
 }

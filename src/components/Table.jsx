@@ -4,8 +4,8 @@ import 'react-tabulator/css/bulma/tabulator_bulma.css';
 
 import Filter from './Filter';
 import { DeleteFilled, EnvironmentFilled, EditFilled } from "@ant-design/icons";
-import { reactFormatter, createModal, useTableData, deleteCell, setSelectedData } from "../utils";
-import { memo, useRef, useState } from 'react';
+import { reactFormatter, createModal, useTableData, setSelectedData, createFilteredData } from "../utils";
+import { useRef, useState } from 'react';
 
 
 const GetMapData = () => {
@@ -42,7 +42,7 @@ function Table () {
       };
 
     const columns = [
-        { title: titleData[0], field: "id", headerFilter:true, headerFilterPlaceholder:"Search", width: 100},
+        { title: titleData[0], field: "id", headerFilter:true, headerFilterPlaceholder:"Search", width: 100, sorter:"number"},
         { title: titleData[1], field: "len", headerFilter:true, headerFilterPlaceholder:"Search",width: 150},
         { title: titleData[2], field: "wkt", headerFilter:true, headerFilterPlaceholder:"Search", width:500},
         { title: titleData[3], field: "status", headerFilter:true, headerFilterPlaceholder:"Search", width: 100},
@@ -57,13 +57,15 @@ function Table () {
             createModal("edit",cellDatas)}},
         { title: "", hozAlign: "center", width: 25, formatter:reactFormatter(<DelteCell/>), cellClick: function(e,cell){
             e.preventDefault()
-            cell.getRow().delete()
+            // cell.getRow().delete()
             const cellDatas= manipulateCell(cell)
-            deleteCell(cellDatas)}},
+            createModal("delete",cellDatas)}},
       ];
-
-
-
+      
+      const initialSort = [
+        {column:titleData[0], dir:"desc"}
+      ]
+     
       return(
         <div className="">
             <Filter
@@ -74,12 +76,21 @@ function Table () {
            <ReactTabulator
             data={tableData}
             columns={columns}
+            initialSort={initialSort}
             options={options}
+            events={{
+                dataFiltered: function(filters,rows){
+                    if(filters.length){
+                        const data = []
+                        rows.map( a=>data.push(a._row.data))
+                        const sendData = JSON.parse(JSON.stringify(data))
+                        createFilteredData(sendData)
+                    }}
+            }}
             onRef={(ref) => (tabulator.current = ref)}
             />
         </div>
     )
 }
 
-
-export default memo(Table)
+export default Table
