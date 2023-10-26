@@ -4,7 +4,7 @@ import 'react-tabulator/css/bulma/tabulator_bulma.css';
 
 import Filter from './Filter';
 import { DeleteFilled, EnvironmentFilled, EditFilled } from "@ant-design/icons";
-import { reactFormatter, createModal, useTableData, setSelectedData, createFilteredData } from "../utils";
+import { reactFormatter, createModal, useTableData, setSelectedData, createFilteredData, clearFilteredData } from "../utils";
 import { useRef, useState } from 'react';
 
 
@@ -85,6 +85,8 @@ function Table () {
                         rows.map( a=>data.push(a._row.data))
                         const sendData = JSON.parse(JSON.stringify(data))
                         createFilteredData(sendData)
+                    } else {
+                        clearFilteredData()
                     }}
             }}
             onRef={(ref) => (tabulator.current = ref)}
